@@ -1,14 +1,13 @@
 import { EversportException } from "@common/error-handling/eversport.exception";
 import { InternalErrorCode } from "@common/error-handling/internal-error-code";
 import { MembershipInMemoryRepository } from "@membership/infrastructure/persistence/in-memory/membership.in-memory.repository";
-import {
-  BillingInterval,
-  PaymentMethod
-} from "@membership/presenter/http/dto/create-membership.request.dto";
+
 import { Test, TestingModule } from "@nestjs/testing";
 
 import { MembershipService } from "./membership.service";
 import { MembershipRepository } from "./ports/persistence/membership.repository";
+import { BillingInterval } from "./types/billing-interval.enum";
+import { PaymentMethod } from "./types/payment-method.enum";
 
 describe("MembershipService", () => {
   let service: MembershipService;

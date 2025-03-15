@@ -4,15 +4,13 @@ import { EversportException } from "@common/error-handling/eversport.exception";
 import { InternalErrorCode } from "@common/error-handling/internal-error-code";
 import { Membership } from "@membership/domain/membership.entity";
 import { MembershipPeriod } from "@membership/domain/membership-period.entity";
-import {
-  CreateMembershipRequestDto,
-  PaymentMethod
-} from "@membership/presenter/http/dto/create-membership.request.dto";
+import { CreateMembershipRequestDto } from "@membership/presenter/http/dto/create-membership.request.dto";
 import { Injectable, Logger } from "@nestjs/common";
 
 import { MembershipWithPeriodsDto } from "./dto/membership-with-periods.dto";
 import { MembershipMapper } from "./mappers/membership.mapper";
 import { MembershipRepository } from "./ports/persistence/membership.repository";
+import { PaymentMethod } from "./types/payment-method.enum";
 
 @Injectable()
 export class MembershipService {
@@ -93,7 +91,7 @@ export class MembershipService {
       .setMembershipPeriods(
         this.createMembershipPeriods(validFrom, billingPeriods, billingInterval)
       )
-      .setState(this.calculateState(validFrom, validUntil))
+      .setState(this.determineMembershipStatus(validFrom, validUntil))
       .setValidUntil(validUntil);
 
     const savedMembership =
@@ -169,7 +167,10 @@ export class MembershipService {
     return membershipPeriods;
   }
 
-  private calculateState(validFrom: string, validUntil: string): string {
+  private determineMembershipStatus(
+    validFrom: string,
+    validUntil: string
+  ): string {
     const now = new Date();
     const startDate = new Date(validFrom);
     const endDate = new Date(validUntil);

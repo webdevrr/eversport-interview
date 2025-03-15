@@ -1,3 +1,5 @@
+import { BillingInterval } from "@membership/application/types/billing-interval.enum";
+import { PaymentMethod } from "@membership/application/types/payment-method.enum";
 import {
   IsDateString,
   IsEnum,
@@ -7,19 +9,6 @@ import {
   Max,
   Min
 } from "class-validator";
-
-//TODO move it
-export enum BillingInterval {
-  MONTHLY = "monthly",
-  YEARLY = "yearly",
-  WEEKLY = "weekly"
-}
-
-//TODO move it
-export enum PaymentMethod {
-  CASH = "cash",
-  CARD = "card"
-}
 
 export class CreateMembershipRequestDto {
   @IsString()
