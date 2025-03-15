@@ -1,7 +1,6 @@
 import { EversportException } from "@common/error-handling/eversport.exception";
 import { InternalErrorCode } from "@common/error-handling/internal-error-code";
 import { MembershipInMemoryRepository } from "@membership/infrastructure/persistence/in-memory/membership.in-memory.repository";
-
 import { Test, TestingModule } from "@nestjs/testing";
 
 import { MembershipService } from "./membership.service";

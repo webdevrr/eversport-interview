@@ -1,13 +1,13 @@
 import { MembershipService } from "@membership/application/membership.service";
 import { MembershipRepository } from "@membership/application/ports/persistence/membership.repository";
+import { BillingInterval } from "@membership/application/types/billing-interval.enum";
+import { PaymentMethod } from "@membership/application/types/payment-method.enum";
 import { MembershipInMemoryRepository } from "@membership/infrastructure/persistence/in-memory/membership.in-memory.repository";
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import request from "supertest";
 
 import { MembershipController } from "./membership.controller";
-import { BillingInterval } from "@membership/application/types/billing-interval.enum";
-import { PaymentMethod } from "@membership/application/types/payment-method.enum";
 
 describe("MembershipController", () => {
   let app: INestApplication;
