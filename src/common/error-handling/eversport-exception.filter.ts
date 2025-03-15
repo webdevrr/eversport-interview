@@ -1,5 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter, Logger } from "@nestjs/common";
 import { Response } from "express";
+
 import { EversportException } from "./eversport.exception";
 
 @Catch(EversportException)

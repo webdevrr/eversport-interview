@@ -1,15 +1,14 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { MembershipService } from "./membership.service";
-import { MembershipRepository } from "./ports/persistence/membership.repository";
+import { EversportException } from "@common/error-handling/eversport.exception";
+import { InternalErrorCode } from "@common/error-handling/internal-error-code";
+import { MembershipInMemoryRepository } from "@membership/infrastructure/persistence/in-memory/membership.in-memory.repository";
 import {
   BillingInterval,
   PaymentMethod
 } from "@membership/presenter/http/dto/create-membership.request.dto";
-import { EversportException } from "@common/error-handling/eversport.exception";
-import { InternalErrorCode } from "@common/error-handling/internal-error-code";
-import { MembershipMapper } from "./mappers/membership.mapper";
-import { Membership } from "@membership/domain/membership.entity";
-import { MembershipInMemoryRepository } from "@membership/infrastructure/persistence/in-memory/membership.in-memory.repository";
+import { Test, TestingModule } from "@nestjs/testing";
+
+import { MembershipService } from "./membership.service";
+import { MembershipRepository } from "./ports/persistence/membership.repository";
 
 describe("MembershipService", () => {
   let service: MembershipService;

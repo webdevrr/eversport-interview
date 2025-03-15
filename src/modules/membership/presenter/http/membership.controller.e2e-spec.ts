@@ -4,6 +4,7 @@ import { MembershipInMemoryRepository } from "@membership/infrastructure/persist
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import request from "supertest";
+
 import { MembershipController } from "./membership.controller";
 
 describe("MembershipController", () => {

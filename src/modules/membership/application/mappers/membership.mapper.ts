@@ -1,8 +1,9 @@
 import { Membership } from "@membership/domain/membership.entity";
-import { MembershipDto } from "../dto/membership.dto";
 import { MembershipPeriod } from "@membership/domain/membership-period.entity";
-import { MembershipWithPeriodsDto } from "../dto/membership-with-periods.dto";
+
+import { MembershipDto } from "../dto/membership.dto";
 import { MembershipPeriodDto } from "../dto/membership-period.dto";
+import { MembershipWithPeriodsDto } from "../dto/membership-with-periods.dto";
 
 export class MembershipMapper {
   static toMembershipDto(domain: Membership): MembershipDto {

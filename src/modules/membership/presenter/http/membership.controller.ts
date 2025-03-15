@@ -1,9 +1,10 @@
 import { MembershipWithPeriodsDto } from "@membership/application/dto/membership-with-periods.dto";
 import { MembershipService } from "@membership/application/membership.service";
 import { Body, Controller, Get, Post } from "@nestjs/common";
+
 import { CreateMembershipRequestDto } from "./dto/create-membership.request.dto";
-import { MembershipHttpMapper } from "./mapper/membership.http.mapper";
 import { CreateMembershipResponseDto } from "./dto/create-membership.response.dto";
+import { MembershipHttpMapper } from "./mapper/membership.http.mapper";
 
 @Controller("/memberships")
 export class MembershipController {

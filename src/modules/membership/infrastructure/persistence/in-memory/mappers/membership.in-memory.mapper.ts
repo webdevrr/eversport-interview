@@ -1,7 +1,8 @@
-import { MembershipPeriod } from "@membership/domain/membership-period.entity";
 import { Membership } from "@membership/domain/membership.entity";
-import { IMembershipPeriod } from "../types/membership-period.interface";
+import { MembershipPeriod } from "@membership/domain/membership-period.entity";
+
 import { IMembership } from "../types/membership.interface";
+import { IMembershipPeriod } from "../types/membership-period.interface";
 
 export class MembershipInMemoryMapper {
   static toMembershipEntity(raw: IMembership): Membership {

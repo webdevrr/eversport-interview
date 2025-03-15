@@ -1,12 +1,11 @@
 import {
-  IsString,
-  IsNumber,
-  IsEnum,
-  IsOptional,
   IsDateString,
-  Min,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
   Max,
-  IsIn
+  Min
 } from "class-validator";
 
 //TODO move it
