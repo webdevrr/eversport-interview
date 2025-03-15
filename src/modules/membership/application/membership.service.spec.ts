@@ -30,16 +30,25 @@ describe("MembershipService", () => {
 
   describe("getMemberships", () => {
     it("should return mapped memberships with periods", async () => {
+      const validFrom = new Date();
       await service.createNewMembership({
         name: "Test Membership",
         recurringPrice: 150,
         paymentMethod: PaymentMethod.CASH,
         billingPeriods: 6,
         billingInterval: BillingInterval.MONTHLY,
-        validFrom: new Date().toISOString()
+        validFrom: validFrom.toISOString()
       });
 
       const result = await service.getMemberships();
+      const periods = result[0].periods;
+
+      const firstPeriodStart = new Date(periods[0].start);
+      const lastPeriodEnd = new Date(periods[5].end);
+
+      const expectedEndDate = new Date(validFrom);
+      expectedEndDate.setMonth(validFrom.getMonth() + 6);
+
       expect(result).toHaveLength(1);
       expect(result[0].membership).toMatchObject({
         name: "Test Membership",
@@ -54,7 +63,9 @@ describe("MembershipService", () => {
         assignedBy: "Admin"
       });
 
-      expect(result[0].periods).toHaveLength(6);
+      expect(firstPeriodStart).toEqual(validFrom);
+      expect(lastPeriodEnd).toEqual(expectedEndDate);
+      expect(periods).toHaveLength(6);
       expect(result[0].periods[0]).toMatchObject({
         start: expect.any(String),
         end: expect.any(String),
