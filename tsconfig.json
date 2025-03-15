@@ -1,14 +1,31 @@
 {
   "compilerOptions": {
-    "target": "es6",
     "module": "commonjs",
-    "rootDir": "./src",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
     "outDir": "./dist",
-    "esModuleInterop": true,
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
-    "strict": true,
-    "allowJs": true  // Allows TypeScript to process JavaScript files
+    "esModuleInterop": true,
+    "paths": {
+      "@membership/*": [
+        "./src/modules/membership/*"
+      ],
+      "@common/*": [
+        "./src/common/*"
+      ]
+    }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
 }
