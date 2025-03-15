@@ -121,7 +121,7 @@ export class MembershipService {
   }
 
   private isValidBillingInterval(billingInterval: string): boolean {
-    return billingInterval === "yearly" || billingInterval === "monthly";
+    return ["yearly", "monthly", "weekly"].includes(billingInterval);
   }
 
   private isValidMonthlyBillingPeriods(billingPeriods: number): boolean {
