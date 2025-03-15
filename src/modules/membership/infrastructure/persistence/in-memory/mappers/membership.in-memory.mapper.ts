@@ -1,55 +1,66 @@
 import { MembershipPeriod } from "@membership/domain/membership-period.entity";
 import { Membership } from "@membership/domain/membership.entity";
-
-interface RawMembership {
-  id: number;
-  uuid: string;
-  name: string;
-  userId: number;
-  recurringPrice: number;
-  validFrom: string;
-  validUntil: string;
-  state: string;
-  assignedBy: string;
-  paymentMethod: string | null;
-  billingInterval: string;
-  billingPeriods: number;
-}
-
-interface RawMembershipPeriod {
-  id: number;
-  uuid: string;
-  membership: number;
-  start: string;
-  end: string;
-  state: string;
-}
+import { IMembershipPeriod } from "../types/membership-period.interface";
+import { IMembership } from "../types/membership.interface";
 
 export class MembershipInMemoryMapper {
-  static toMembershipEntity(raw: RawMembership): Membership {
+  static toMembershipEntity(raw: IMembership): Membership {
     return new Membership(
       raw.uuid,
       raw.name,
       raw.userId,
       raw.recurringPrice,
-      new Date(raw.validFrom),
-      new Date(raw.validUntil),
-      raw.state,
+      raw.validFrom,
       raw.assignedBy,
-      raw.paymentMethod ?? "",
+      raw.paymentMethod,
       raw.billingInterval,
       raw.billingPeriods
-    ).setId(raw.id);
+    )
+      .setId(raw.id)
+      .setMembershipPeriods(
+        raw.membershipPeriods.map((period) =>
+          MembershipInMemoryMapper.toMembershipPeriodEntity(period)
+        )
+      )
+      .setValidUntil(raw.validUntil)
+      .setState(raw.state);
   }
 
-  static toMembershipPeriodEntity(raw: RawMembershipPeriod): MembershipPeriod {
-    return new MembershipPeriod(
-      raw.id,
-      raw.uuid,
-      raw.membership,
-      new Date(raw.start),
-      new Date(raw.end),
-      raw.state
-    );
+  static toMembershipPersistence(entity: Membership): IMembership {
+    return {
+      id: entity.id,
+      uuid: entity.uuid,
+      name: entity.name,
+      userId: entity.userId,
+      validUntil: entity.getValidUntil(),
+      recurringPrice: entity.recurringPrice,
+      validFrom: entity.validFrom,
+      state: entity.state,
+      assignedBy: entity.assignedBy,
+      paymentMethod: entity.paymentMethod,
+      billingInterval: entity.billingInterval,
+      billingPeriods: entity.billingPeriods,
+      membershipPeriods: entity.getMembershipPeriods()
+    };
+  }
+
+  static toMembershipPeriodPersistence(
+    entity: MembershipPeriod,
+    id: number
+  ): IMembershipPeriod {
+    return {
+      id,
+      uuid: entity.uuid,
+      membership: entity.id,
+      start: entity.start,
+      end: entity.end,
+      state: entity.state
+    };
+  }
+
+  static toMembershipPeriodEntity(raw: IMembershipPeriod): MembershipPeriod {
+    return new MembershipPeriod(raw.uuid, raw.start, raw.end, raw.state)
+      .setId(raw.id)
+      .setMembership(raw.membership);
   }
 }

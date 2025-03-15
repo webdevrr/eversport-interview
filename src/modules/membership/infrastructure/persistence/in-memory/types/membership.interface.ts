@@ -1,3 +1,5 @@
+import { IMembershipPeriod } from "./membership-period.interface";
+
 export interface IMembership {
   id: number;
   uuid: string;
@@ -11,4 +13,5 @@ export interface IMembership {
   paymentMethod: string | null;
   billingInterval: string;
   billingPeriods: number;
+  membershipPeriods?: IMembershipPeriod[];
 }

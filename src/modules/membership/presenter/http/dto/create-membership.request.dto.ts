@@ -9,12 +9,14 @@ import {
   IsIn
 } from "class-validator";
 
+//TODO move it
 export enum BillingInterval {
   MONTHLY = "monthly",
   YEARLY = "yearly",
   WEEKLY = "weekly"
 }
 
+//TODO move it
 export enum PaymentMethod {
   CASH = "cash",
   CARD = "card"

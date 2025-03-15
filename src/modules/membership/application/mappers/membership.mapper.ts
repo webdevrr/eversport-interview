@@ -7,13 +7,13 @@ import { MembershipPeriodDto } from "../dto/membership-period.dto";
 export class MembershipMapper {
   static toMembershipDto(domain: Membership): MembershipDto {
     return new MembershipDto(
-      domain.id,
+      domain.getId(),
       domain.uuid,
       domain.name,
       domain.userId,
       domain.recurringPrice,
-      domain.validFrom.toISOString(),
-      domain.validUntil.toISOString(),
+      domain.validFrom,
+      domain.validUntil,
       domain.state,
       domain.assignedBy,
       domain.paymentMethod,
@@ -24,21 +24,20 @@ export class MembershipMapper {
 
   static toMembershipPeriodDto(domain: MembershipPeriod): MembershipPeriodDto {
     return new MembershipPeriodDto(
-      domain.id,
-      domain.uuid,
-      domain.membership,
+      domain.getId(),
+      domain.getUUID(),
+      domain.getMembership(),
       domain.start,
       domain.end,
       domain.state
     );
   }
-  static toMembershipWithPeriodsDto(domain: {
-    membership: Membership;
-    periods: MembershipPeriod[];
-  }): MembershipWithPeriodsDto {
+  static toMembershipWithPeriodsDto(
+    domain: Membership
+  ): MembershipWithPeriodsDto {
     return new MembershipWithPeriodsDto(
-      MembershipMapper.toMembershipDto(domain.membership),
-      domain.periods.map(MembershipMapper.toMembershipPeriodDto)
+      MembershipMapper.toMembershipDto(domain),
+      domain.getMembershipPeriods().map(MembershipMapper.toMembershipPeriodDto)
     );
   }
 }
